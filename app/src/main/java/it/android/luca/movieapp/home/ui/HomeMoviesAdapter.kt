@@ -9,14 +9,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import it.android.luca.movieapp.R
 import it.android.luca.movieapp.repository.Movie
-import android.app.Activity
-import android.content.Intent
-import android.util.DisplayMetrics
-import com.bumptech.glide.request.RequestOptions
 import it.android.luca.movieapp.detail.ui.DetailActivity
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
 import it.android.luca.movieapp.network.MovieApi.Companion.IMAGE_URL
-import it.android.luca.movieapp.util.Utils.Companion.convertDpToPixel
 
 
 class HomeMoviesAdapter(val presenter: DefaultHomePresenter) : RecyclerView.Adapter<HomeMoviesAdapter.MovieHolder>() {

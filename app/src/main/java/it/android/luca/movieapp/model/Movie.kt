@@ -47,4 +47,15 @@ data class Movie(
     @SerializedName("release_date")
     @Expose
     val release_date: String
-)
+){
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Movie
+
+        if (id != other.id) return false
+
+        return true
+    }
+}

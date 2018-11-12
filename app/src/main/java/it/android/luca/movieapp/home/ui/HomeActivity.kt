@@ -39,7 +39,7 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.clear()
+//        presenter.clear()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -51,7 +51,6 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         state = savedInstanceState?.getParcelable("position")
-//        movie_list.layoutManager = homeLayoutManager
     }
 
 
@@ -64,7 +63,7 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
         movie_list.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(homeLayoutManager!!.findLastCompletelyVisibleItemPosition() == adapter!!.itemCount-1){
+                if(homeLayoutManager!!.findLastCompletelyVisibleItemPosition() >= adapter!!.itemCount-5){
                     presenter.loadNextPage(adapter!!.itemCount/20+1)
                 }
             }
@@ -81,6 +80,7 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
     override fun showMovies(items: List<Movie>) {
         adapter?.addItems(items)
         state?.let { movie_list.layoutManager?.onRestoreInstanceState(it) }
+        state = null
     }
 
 }

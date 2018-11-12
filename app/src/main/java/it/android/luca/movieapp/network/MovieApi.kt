@@ -16,6 +16,6 @@ interface MovieApi {
     fun movie(@Path(value = "id", encoded = true) id: String): Observable<Movie>
 
     companion object {
-        val IMAGE_URL = "https://image.tmdb.org/t/p/original"
+        val IMAGE_URL = "https://image.tmdb.org/t/p/w500"
     }
 }

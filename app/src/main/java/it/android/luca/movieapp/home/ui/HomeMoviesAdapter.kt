@@ -17,7 +17,9 @@ import it.android.luca.movieapp.network.MovieApi.Companion.IMAGE_URL
 class HomeMoviesAdapter(val presenter: DefaultHomePresenter) : RecyclerView.Adapter<HomeMoviesAdapter.MovieHolder>() {
 
 
-    private var homeList: ArrayList<Movie> = ArrayList()
+    companion object {
+        private var homeList: ArrayList<Movie> = ArrayList()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_item, parent, false)
@@ -35,8 +37,11 @@ class HomeMoviesAdapter(val presenter: DefaultHomePresenter) : RecyclerView.Adap
     }
 
     fun addItems(movies: List<Movie>) {
-        homeList.addAll(movies)
-        notifyDataSetChanged()
+        val oldcount = itemCount
+        if(!homeList.containsAll(movies)) {
+            homeList.addAll(movies)
+            notifyDataSetChanged()
+        }
     }
 
 

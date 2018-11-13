@@ -60,9 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/detail_padding_description"
-                    app:layout_constraintTop_toBottomOf="@id/release_date"
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
+                    app:layout_constraintTop_toBottomOf="@id/release_date"/>
 
             <include
                     layout="@layout/layout_loading"

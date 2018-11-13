@@ -46,7 +46,14 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
         collapsing_toolbar.isTitleEnabled = false
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
     }
 
     private fun initViews(){

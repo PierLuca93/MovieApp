@@ -3,9 +3,11 @@ package it.android.luca.movieapp.detail.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat.startActivity
 import android.text.TextUtils
 import android.view.View
+import android.view.View.*
 import com.bumptech.glide.Glide
 import it.android.luca.movieapp.App
 import it.android.luca.movieapp.BaseActivity
@@ -22,6 +24,18 @@ import it.android.luca.movieapp.repository.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_detail.view.*
 import javax.inject.Inject
+import android.graphics.drawable.Drawable
+import com.squareup.picasso.Picasso
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
+import com.bumptech.glide.request.target.ImageViewTarget
+import android.support.v7.graphics.Palette
+import android.provider.MediaStore.Images.Media.getBitmap
+
+
+
 
 class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
 
@@ -46,7 +60,6 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)
-        collapsing_toolbar.isTitleEnabled = false
     }
 
     private fun initViews(){
@@ -67,12 +80,34 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
     }
 
     override fun showMovie(item: Movie) {
-        supportActionBar?.title = item.title
+        collapsing_toolbar.title = item.title
         release_date.text = item.release_date
         description.text = item.overview
         Glide.with(this)
             .load(IMAGE_URL+item.poster_path)
-            .into(poster)
+            .into(object : ImageViewTarget<Drawable>(poster) {
+                override fun setResource(resource: Drawable?) {
+                    resource?.let {
+                        setImage(it)
+                        extractColor(it) }
+                }
+
+                private fun setImage(resource: Drawable) {
+                    poster.setBackgroundDrawable(resource)
+                }
+
+                private fun extractColor(resource: Drawable) {
+                    val b = (resource as BitmapDrawable).bitmap
+
+                    Palette.from(b).generate { palette ->
+                        val defaultColor = resources.getColor(R.color.colorPrimary)
+                        val color = palette!!.getDominantColor(defaultColor)
+                        collapsing_toolbar.setContentScrimColor(color)
+                    }
+
+
+                }
+            })
     }
 
     companion object {

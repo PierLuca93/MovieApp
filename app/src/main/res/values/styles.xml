@@ -10,4 +10,12 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+
+    <style name="ExpandedTextColor" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#00000000</item>
+    </style>
+
+    <style name="CollapsedTextColor" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorBackground</item>
+    </style>
 </resources>

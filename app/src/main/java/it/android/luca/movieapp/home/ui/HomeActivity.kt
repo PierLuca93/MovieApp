@@ -6,12 +6,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearLayoutManager.VERTICAL
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import it.android.luca.movieapp.App
 import it.android.luca.movieapp.BaseActivity
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
 import it.android.luca.movieapp.R
 import it.android.luca.movieapp.di.*
 import it.android.luca.movieapp.repository.Movie
+import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -34,6 +36,7 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
         setContentView(R.layout.activity_home)
         initDagger()
         initViews()
+        initToolbar()
         presenter.fetchMovies()
     }
 
@@ -48,6 +51,10 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
         state = savedInstanceState?.getParcelable("position")
     }
 
+    private fun initToolbar() {
+        setSupportActionBar(toolbar_home)
+        collapsing_toolbar_home.isTitleEnabled = false
+    }
 
     private fun initViews(){
         homeLayoutManager = GridLayoutManager(this, column)

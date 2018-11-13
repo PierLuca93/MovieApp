@@ -37,11 +37,6 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
         presenter.fetchMovies()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-//        presenter.clear()
-    }
-
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putParcelable("position", movie_list.layoutManager?.onSaveInstanceState())

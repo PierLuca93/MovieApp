@@ -20,6 +20,7 @@ import it.android.luca.movieapp.network.MovieApi
 import it.android.luca.movieapp.network.MovieApi.Companion.IMAGE_URL
 import it.android.luca.movieapp.repository.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_detail.view.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
@@ -32,6 +33,8 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
         setContentView(R.layout.activity_detail)
         initDagger()
         initViews()
+        initToolbar()
+
         val id = intent?.extras?.getString(MOVIE_ID)
         id?.let { presenter.fetchMovie(it) }
     }
@@ -39,6 +42,11 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.clear()
+    }
+
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        collapsing_toolbar.isTitleEnabled = false
     }
 
     private fun initViews(){
@@ -59,7 +67,7 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
     }
 
     override fun showMovie(item: Movie) {
-        page_title.text = item.title
+        supportActionBar?.title = item.title
         release_date.text = item.release_date
         description.text = item.overview
         Glide.with(this)

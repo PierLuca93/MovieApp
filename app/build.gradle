@@ -64,7 +64,12 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$Retrofit"
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation "com.google.code.gson:gson:$Gson"
+
+    //Test
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-inline:2.19.0'
+    testImplementation 'de.jodamob.kotlin:kotlin-runner-junit4:0.3.1'
+
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

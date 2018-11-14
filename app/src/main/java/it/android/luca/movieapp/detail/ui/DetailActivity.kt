@@ -18,7 +18,10 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.BitmapDrawable
 import com.bumptech.glide.request.target.ImageViewTarget
 import android.support.v7.graphics.Palette
-
+import android.widget.ImageView
+import com.bumptech.glide.request.RequestOptions
+import it.android.luca.movieapp.R.id.collapsing_toolbar
+import it.android.luca.movieapp.R.id.poster
 
 
 class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
@@ -54,9 +57,9 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
         return true
     }
 
-    private fun initViews(){
+    private fun initViews() {
         description.setOnClickListener {
-            if(description.maxLines == 3) {
+            if (description.maxLines == 3) {
                 description.maxLines = Int.MAX_VALUE
             } else {
                 description.maxLines = 3
@@ -64,7 +67,7 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
         }
     }
 
-    private fun initDagger(){
+    private fun initDagger() {
         DaggerDetailComponent.builder()
             .appComponent((application as App).getAppComponent())
             .detailModule(DetailModule(this))
@@ -76,37 +79,40 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
         release_date.text = item.release_date
         description.text = item.overview
         Glide.with(this)
-            .load(IMAGE_URL+item.poster_path)
-            .into(object : ImageViewTarget<Drawable>(poster) {
-                override fun setResource(resource: Drawable?) {
-                    resource?.let {
-                        setImage(it)
-                        extractColor(it) }
-                }
+            .load(IMAGE_URL + item.poster_path)
+            .into(MoviePosterTarget(poster, this))
+    }
 
-                private fun setImage(resource: Drawable) {
-                    poster.setBackgroundDrawable(resource)
-                }
+    class MoviePosterTarget(val poster: ImageView, val activity: DetailActivity) : ImageViewTarget<Drawable>(poster) {
+        override fun setResource(resource: android.graphics.drawable.Drawable?) {
+            resource?.let {
+                setImage(it)
+                extractColor(it)
+            }
+        }
 
-                private fun extractColor(resource: Drawable) {
-                    val b = (resource as BitmapDrawable).bitmap
+        private fun setImage(resource: android.graphics.drawable.Drawable) {
+            poster.setBackgroundDrawable(resource)
+        }
 
-                    Palette.from(b).generate { palette ->
-                        val defaultColor = resources.getColor(R.color.colorPrimary)
-                        val color = palette!!.getDominantColor(defaultColor)
-                        collapsing_toolbar.setContentScrimColor(color)
-                    }
+        private fun extractColor(resource: android.graphics.drawable.Drawable) {
+            val b = (resource.current as BitmapDrawable).bitmap
 
+            Palette.from(b).generate { palette ->
+                val defaultColor = activity.resources.getColor(R.color.colorPrimary)
+                var color = 0
+                color = palette!!.getDominantColor(defaultColor)
+                activity.collapsing_toolbar.setContentScrimColor(color)
+            }
 
-                }
-            })
+        }
     }
 
     companion object {
 
         val MOVIE_ID = "movie_id"
 
-        fun createIntent(context: Context, id: String){
+        fun createIntent(context: Context, id: String) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_ID, id)
             context.startActivity(intent)

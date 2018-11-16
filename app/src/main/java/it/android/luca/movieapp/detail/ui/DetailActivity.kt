@@ -2,6 +2,8 @@ package it.android.luca.movieapp.detail.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import it.android.luca.movieapp.App
@@ -17,7 +19,7 @@ import javax.inject.Inject
 import java.text.SimpleDateFormat
 
 
-class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
+class DetailActivity : BaseActivity(), DefaultDetailPresenter.View, DynamicColorsActivity {
 
     @Inject
     lateinit var presenter: DefaultDetailPresenter
@@ -63,6 +65,15 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View {
         Glide.with(this)
             .load(IMAGE_URL + item.poster_path)
             .into(MoviePosterTarget(poster, this))
+    }
+
+    override fun setTextColor(color: Int){
+        toolbar.navigationIcon?.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        collapsing_toolbar.setCollapsedTitleTextColor(color)
+    }
+
+    override fun setBackgroundColor(color: Int){
+        collapsing_toolbar.setContentScrimColor(color)
     }
 
     companion object {

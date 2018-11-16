@@ -1,15 +1,13 @@
 package it.android.luca.movieapp.detail.ui
 
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.v7.graphics.Palette
 import android.widget.ImageView
 import com.bumptech.glide.request.target.ImageViewTarget
-import kotlinx.android.synthetic.main.activity_detail.*
 
-class MoviePosterTarget(val poster: ImageView, val activity: DetailActivity) : ImageViewTarget<Drawable>(poster) {
+class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivity) : ImageViewTarget<Drawable>(poster) {
     override fun setResource(resource: android.graphics.drawable.Drawable?) {
         resource?.let {
             setImage(it)
@@ -44,9 +42,8 @@ class MoviePosterTarget(val poster: ImageView, val activity: DetailActivity) : I
                     bgColor = if (closerToBlack(textColor)) white else black
                 }
             }
-            activity.toolbar.navigationIcon?.setColorFilter(textColor, PorterDuff.Mode.SRC_ATOP)
-            activity.collapsing_toolbar.setCollapsedTitleTextColor(textColor)
-            activity.collapsing_toolbar.setContentScrimColor(bgColor)
+            activity.setTextColor(textColor)
+            activity.setBackgroundColor(bgColor)
 
         }
 
@@ -66,4 +63,9 @@ class MoviePosterTarget(val poster: ImageView, val activity: DetailActivity) : I
     private fun closerToBlack(color: Int): Boolean {
         return colorDistance(color, Color.BLACK) < 220
     }
+}
+
+interface DynamicColorsActivity{
+    fun setTextColor(color: Int)
+    fun setBackgroundColor(color: Int)
 }

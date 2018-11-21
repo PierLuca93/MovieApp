@@ -7,11 +7,12 @@ import android.support.v7.graphics.Palette
 import android.widget.ImageView
 import com.bumptech.glide.request.target.ImageViewTarget
 
-class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivity) : ImageViewTarget<Drawable>(poster) {
+class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivity) :
+    ImageViewTarget<Drawable>(poster) {
     override fun setResource(resource: android.graphics.drawable.Drawable?) {
         resource?.let {
             setImage(it)
-            extractColor(it)
+            generatePalette(it)
         }
     }
 
@@ -19,34 +20,47 @@ class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivi
         poster.setBackgroundDrawable(resource)
     }
 
-    private fun extractColor(resource: android.graphics.drawable.Drawable) {
+    private fun generatePalette(resource: android.graphics.drawable.Drawable) {
         val b = (resource.current as BitmapDrawable).bitmap
+        Palette.from(b).clearFilters().generate(ColorExtractor(activity))
+    }
+}
 
-        Palette.from(b).clearFilters().generate { palette ->
-            val black = Color.BLACK
-            val white = Color.WHITE
-            val vibrant = palette!!.vibrantSwatch
-            val dominant = palette.dominantSwatch
-            var bgColor = vibrant?.rgb ?: black
-            var textColor = vibrant?.bodyTextColor ?: white
-            dominant?.let {
-                if (it.population > 2000) {
-                    bgColor = it.rgb
-                    textColor = vibrant?.rgb ?: white
-                }
-            }
-            if (similarColors(bgColor, textColor)) {
-                if (bgColor == dominant?.rgb) {
-                    textColor = if (closerToBlack(bgColor)) white else black
-                } else {
-                    bgColor = if (closerToBlack(textColor)) white else black
-                }
-            }
-            activity.setTextColor(textColor)
-            activity.setBackgroundColor(bgColor)
+class ColorExtractor(private val activity: DynamicColorsActivity) : Palette.PaletteAsyncListener {
 
+    val black = Color.BLACK
+    val white = Color.WHITE
+    var bgColor = black
+    var textColor = white
+
+    override fun onGenerated(palette: Palette?) {
+        extractColors(palette)
+        setColors()
+    }
+
+    private fun extractColors(palette: Palette?) {
+        val vibrant = palette!!.vibrantSwatch
+        val dominant = palette.dominantSwatch
+        bgColor = vibrant?.rgb ?: black
+        textColor = vibrant?.bodyTextColor ?: white
+        dominant?.let {
+            if (it.population > 2000) {
+                bgColor = it.rgb
+                textColor = vibrant?.rgb ?: white
+            }
         }
+        if (similarColors(bgColor, textColor)) {
+            if (bgColor == dominant?.rgb) {
+                textColor = if (closerToBlack(bgColor)) white else black
+            } else {
+                bgColor = if (closerToBlack(textColor)) white else black
+            }
+        }
+    }
 
+    private fun setColors() {
+        activity.setBackgroundColor(bgColor)
+        activity.setTextColor(textColor)
     }
 
     private fun colorDistance(first: Int, second: Int): Double {
@@ -56,16 +70,17 @@ class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivi
         return Math.sqrt(squareDistance)
     }
 
-    private fun similarColors(first: Int, second: Int): Boolean{
+    private fun similarColors(first: Int, second: Int): Boolean {
         return colorDistance(first, second) < 50
     }
 
     private fun closerToBlack(color: Int): Boolean {
         return colorDistance(color, Color.BLACK) < 220
     }
+
 }
 
-interface DynamicColorsActivity{
+interface DynamicColorsActivity {
     fun setTextColor(color: Int)
     fun setBackgroundColor(color: Int)
 }

@@ -1,4 +1,4 @@
-package it.android.luca.movieapp.repository
+package it.android.luca.movieapp.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

@@ -2,7 +2,7 @@ package it.android.luca.movieapp.network
 
 import io.reactivex.Observable
 import it.android.luca.movieapp.model.MoviesList
-import it.android.luca.movieapp.repository.Movie
+import it.android.luca.movieapp.model.Movie
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

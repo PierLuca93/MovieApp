@@ -11,6 +11,5 @@ import javax.inject.Singleton
 interface TestAppComponent: AppComponent {
 
     override fun movieService(): MovieService
-//
 override fun inject(application: Application)
 }

@@ -5,7 +5,6 @@ import dagger.Module
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
 import it.android.luca.movieapp.home.presenter.HomePresenter
 import it.android.luca.movieapp.network.MovieService
-import javax.inject.Singleton
 
 
 @Module

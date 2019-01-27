@@ -1,26 +1,18 @@
 package it.android.luca.movieapp.home.ui
 
-import android.app.Application
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearLayoutManager.VERTICAL
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import it.android.luca.movieapp.App
 import it.android.luca.movieapp.BaseActivity
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
 import it.android.luca.movieapp.R
 import it.android.luca.movieapp.di.*
 import it.android.luca.movieapp.home.presenter.HomePresenter
-import it.android.luca.movieapp.repository.Movie
-import kotlinx.android.synthetic.main.activity_detail.*
+import it.android.luca.movieapp.model.Movie
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
-
-
-
 
 
 class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
@@ -89,7 +81,6 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
     override fun showMovies(items: List<Movie>) {
         adapter?.addItems(items)
         state?.let { movie_list.layoutManager?.onRestoreInstanceState(it) }
-        state = null
     }
 
 }

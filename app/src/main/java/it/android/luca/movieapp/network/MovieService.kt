@@ -4,7 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import it.android.luca.movieapp.model.MoviesList
-import it.android.luca.movieapp.repository.Movie
+import it.android.luca.movieapp.model.Movie
 
 open class MovieService(private val api: MovieApi) {
 

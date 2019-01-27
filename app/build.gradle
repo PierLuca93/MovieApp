@@ -14,17 +14,21 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "it.android.luca.movieapp.utils.CustomTestRunner"
+
+
+        def localPropertiesFile = rootProject.file("local.properties")
+        def localProperties = new Properties()
+        localProperties.load(new FileInputStream(localPropertiesFile))
+        buildConfigField "String", "APIKEY", localProperties['APIKey']
+
     }
     buildTypes {
         debug {
-            it.buildConfigField 'String', 'APIKEY', APIKey
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            it.buildConfigField 'String', 'APIKEY', APIKey
         }
     }
 

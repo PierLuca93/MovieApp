@@ -4,7 +4,6 @@ import it.android.luca.movieapp.App
 
 
 class TestApp: App() {
-//    lateinit var component: TestAppComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -14,7 +13,5 @@ class TestApp: App() {
             .build()
         component.inject(this)
     }
-
-//    fun getAppComponent(): TestAppComponent? = component
 
 }

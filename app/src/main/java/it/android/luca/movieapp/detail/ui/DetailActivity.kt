@@ -12,7 +12,7 @@ import it.android.luca.movieapp.detail.presenter.DefaultDetailPresenter
 import it.android.luca.movieapp.di.DaggerDetailComponent
 import it.android.luca.movieapp.di.DetailModule
 import it.android.luca.movieapp.network.MovieApi.Companion.IMAGE_URL
-import it.android.luca.movieapp.repository.Movie
+import it.android.luca.movieapp.model.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 import java.text.SimpleDateFormat

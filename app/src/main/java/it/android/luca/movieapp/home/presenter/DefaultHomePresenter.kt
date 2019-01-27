@@ -4,7 +4,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import it.android.luca.movieapp.BasePresenterView
 import it.android.luca.movieapp.network.MovieService
-import it.android.luca.movieapp.repository.Movie
+import it.android.luca.movieapp.model.Movie
 
 class DefaultHomePresenter(private val service: MovieService, private val view: View) :
     HomePresenter {

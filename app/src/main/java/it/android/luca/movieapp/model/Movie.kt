@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Movie(
     @SerializedName("vote_count")
     @Expose
-    val vote_count: Int,
+    val voteCount: Int,
     @SerializedName("id")
     @Expose
     val id: Int,
@@ -15,7 +15,7 @@ data class Movie(
     val video: Boolean,
     @SerializedName("vote_average")
     @Expose
-    val vote_average: Float,
+    val voteAverage: Float,
     @SerializedName("title")
     @Expose
     val title: String,
@@ -24,19 +24,19 @@ data class Movie(
     val popularity: Float,
     @SerializedName("poster_path")
     @Expose
-    val poster_path: String,
+    val posterPath: String,
     @SerializedName("original_language")
     @Expose
-    val original_language: String,
+    val originalLanguage: String,
     @SerializedName("original_title")
     @Expose
-    val original_title: String,
+    val originalTitle: String,
     @SerializedName("genre_ids")
     @Expose
-    val genre_ids: Array<Int>,
+    val genreIds: Array<Int>,
     @SerializedName("backdrop_path")
     @Expose
-    val backdrop_path: String,
+    val backdropPath: String,
     @SerializedName("adult")
     @Expose
     val adult: Boolean,
@@ -45,7 +45,7 @@ data class Movie(
     val overview: String,
     @SerializedName("release_date")
     @Expose
-    val release_date: String
+    val releaseDate: String
 ){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -1,5 +1,6 @@
 package it.android.luca.movieapp.home.ui
 
+import android.app.Application
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import it.android.luca.movieapp.BaseActivity
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
 import it.android.luca.movieapp.R
 import it.android.luca.movieapp.di.*
+import it.android.luca.movieapp.home.presenter.HomePresenter
 import it.android.luca.movieapp.repository.Movie
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.activity_home.*
@@ -25,7 +27,7 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
 
 
     @Inject
-    lateinit var presenter: DefaultHomePresenter
+    lateinit var presenter: HomePresenter
     private var column: Int = 2
     private var homeLayoutManager: GridLayoutManager? = null
     private var adapter: HomeMoviesAdapter? = null
@@ -38,6 +40,11 @@ class HomeActivity : BaseActivity(), DefaultHomePresenter.View{
         initViews()
         initToolbar()
         presenter.fetchMovies()
+    }
+
+    override fun onDestroy() {
+        presenter.dispose()
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

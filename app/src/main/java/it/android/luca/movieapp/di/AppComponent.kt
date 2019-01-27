@@ -1,5 +1,6 @@
 package it.android.luca.movieapp.di
 
+import android.app.Application
 import dagger.Component
 import it.android.luca.movieapp.App
 import it.android.luca.movieapp.network.MovieApi
@@ -13,5 +14,5 @@ interface AppComponent {
 
     fun movieService(): MovieService
 
-    fun inject(application: App)
+    fun inject(application: Application)
 }

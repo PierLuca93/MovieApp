@@ -1,9 +1,15 @@
 package it.android.luca.movieapp.model
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import it.android.luca.movieapp.repository.Movie
 
 data class MoviesList(
     val page: Int,
-    val total_results: Int,
-    val total_pages: Int,
+    @SerializedName("total_results")
+    @Expose
+    val totalResults: Int,
+    @SerializedName("total_pages")
+    @Expose
+    val totalPages: Int,
     val results: List<Movie>)

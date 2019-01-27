@@ -14,7 +14,8 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "it.android.luca.movieapp.utils.CustomTestRunner"
     }
     buildTypes {
         debug {
@@ -65,11 +66,20 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation "com.google.code.gson:gson:$Gson"
 
+
+
+
     //Test
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.19.0'
     testImplementation 'de.jodamob.kotlin:kotlin-runner-junit4:0.3.1'
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+
 }

@@ -31,8 +31,8 @@ class DefaultHomePresenter(private val service: MovieService, private val view: 
                 })
     }
 
-    fun clear() {
-        subscription.clear()
+    override fun dispose() {
+        subscription.dispose()
     }
 
     override fun fetchMovies() {

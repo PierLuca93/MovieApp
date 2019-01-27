@@ -11,15 +11,16 @@ import it.android.luca.movieapp.R
 import it.android.luca.movieapp.repository.Movie
 import it.android.luca.movieapp.detail.ui.DetailActivity
 import it.android.luca.movieapp.home.presenter.DefaultHomePresenter
+import it.android.luca.movieapp.home.presenter.HomePresenter
 import it.android.luca.movieapp.network.MovieApi.Companion.IMAGE_URL
 
 
-class HomeMoviesAdapter(val presenter: DefaultHomePresenter) : RecyclerView.Adapter<HomeMoviesAdapter.MovieHolder>() {
+class HomeMoviesAdapter(val presenter: HomePresenter) : RecyclerView.Adapter<HomeMoviesAdapter.MovieHolder>() {
 
 
-    companion object {
+//    companion object {
         private var homeList: ArrayList<Movie> = ArrayList()
-    }
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.home_item, parent, false)
@@ -32,7 +33,7 @@ class HomeMoviesAdapter(val presenter: DefaultHomePresenter) : RecyclerView.Adap
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
         holder.bindId(homeList[position].id.toString())
         Glide.with(holder.context)
-            .load(IMAGE_URL + homeList[position].poster_path)
+            .load(IMAGE_URL + homeList[position].posterPath)
             .into(holder.poster)
     }
 

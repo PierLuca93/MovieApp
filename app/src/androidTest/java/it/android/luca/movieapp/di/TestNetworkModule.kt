@@ -7,7 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 import com.google.gson.GsonBuilder
 import dagger.Module
-import it.android.luca.movieapp.BuildConfig
+import it.android.luca.movieapp.utils.MockedInterceptor
 import it.android.luca.movieapp.network.MovieApi
 import it.android.luca.movieapp.network.MovieService
 import okhttp3.OkHttpClient
@@ -15,9 +15,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 
 @Module
-class NetworkModule{
+class TestNetworkModule {
 
-    private val BASE_URL = "https://api.themoviedb.org/3/movie/"
+    private val BASE_URL = "https://localhost:8080/"
 
     @Singleton
     @Provides
@@ -50,16 +50,6 @@ class NetworkModule{
 
     @Provides
     fun provdeClient(): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor { chain ->
-            val original = chain.request()
-            val originalHttpUrl = original.url()
-            val url = originalHttpUrl.newBuilder()
-                .addQueryParameter("api_key", BuildConfig.APIKEY)
-                .build()
-            val requestBuilder = original.newBuilder()
-                .url(url)
-            val request = requestBuilder.build()
-            chain.proceed(request)
-        }.build()
+        return OkHttpClient.Builder().addInterceptor(MockedInterceptor()).build()
     }
 }

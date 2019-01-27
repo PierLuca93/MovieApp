@@ -5,7 +5,7 @@ import it.android.luca.movieapp.di.AppComponent
 import it.android.luca.movieapp.di.DaggerAppComponent
 import it.android.luca.movieapp.di.NetworkModule
 
-class App: Application() {
+open class App: Application() {
     lateinit var component:AppComponent
 
     override fun onCreate() {

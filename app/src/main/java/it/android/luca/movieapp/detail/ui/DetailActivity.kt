@@ -3,7 +3,6 @@ package it.android.luca.movieapp.detail.ui
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import it.android.luca.movieapp.App
@@ -29,7 +28,10 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View, DynamicColor
         setContentView(R.layout.activity_detail)
         initDagger()
         initToolbar()
+        getMovieDetail()
+    }
 
+    private fun getMovieDetail(){
         val id = intent?.extras?.getString(MOVIE_ID)
         id?.let { presenter.fetchMovie(it) }
     }
@@ -59,12 +61,12 @@ class DetailActivity : BaseActivity(), DefaultDetailPresenter.View, DynamicColor
 
     override fun showMovie(item: Movie) {
         collapsing_toolbar.title = item.title
-        val date = SimpleDateFormat("yyyy-MM-dd").parse(item.release_date)
+        val date = SimpleDateFormat("yyyy-MM-dd").parse(item.releaseDate)
         release_date.text = SimpleDateFormat("dd-MM-yyyy").format(date)
         description.text = item.overview
         Glide.with(this)
-            .load(IMAGE_URL + item.poster_path)
-            .into(MoviePosterTarget(poster, this))
+            .load(IMAGE_URL + item.posterPath)
+            .into(MoviePoster(poster, this))
     }
 
     override fun setTextColor(color: Int){

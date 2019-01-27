@@ -7,7 +7,7 @@ import android.support.v7.graphics.Palette
 import android.widget.ImageView
 import com.bumptech.glide.request.target.ImageViewTarget
 
-class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivity) :
+class MoviePoster(val poster: ImageView, val activity: DynamicColorsActivity) :
     ImageViewTarget<Drawable>(poster) {
     override fun setResource(resource: android.graphics.drawable.Drawable?) {
         resource?.let {
@@ -28,17 +28,17 @@ class MoviePosterTarget(val poster: ImageView, val activity: DynamicColorsActivi
 
 class ColorExtractor(private val activity: DynamicColorsActivity) : Palette.PaletteAsyncListener {
 
-    val black = Color.BLACK
-    val white = Color.WHITE
+    private val black = Color.BLACK
+    private val white = Color.WHITE
     var bgColor = black
     var textColor = white
 
     override fun onGenerated(palette: Palette?) {
-        extractColors(palette)
+        computeColors(palette)
         setColors()
     }
 
-    private fun extractColors(palette: Palette?) {
+    private fun computeColors(palette: Palette?) {
         val vibrant = palette!!.vibrantSwatch
         val dominant = palette.dominantSwatch
         bgColor = vibrant?.rgb ?: black

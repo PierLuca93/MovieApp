@@ -27,26 +27,21 @@ class DefaultDetailPresenterTest {
 
     @Test
     fun test_onCreation_fetchMovieWithId(){
-        //Given
         val movie = Movie(1,1,false,1f,"",1f,"","","", arrayOf(), "", false, "","")
 
-        //When
         `when`(service.getMovie("1")).thenReturn(Observable.just(movie))
 
         presenter.fetchMovie("1")
 
-        //Then
         verify(view).showMovie(movie)
     }
 
     @Test
     fun test_onCreation_fetchMovieWithId_handleErrorCase(){
-        //When
         `when`(service.getMovie("1")).thenReturn(Observable.error(Exception("movie not found")))
 
         presenter.fetchMovie("1")
 
-        //Then
         verify(view).showError("movie not found")
     }
 }

@@ -6,14 +6,14 @@ import io.reactivex.schedulers.Schedulers
 import it.android.luca.movieapp.model.MoviesList
 import it.android.luca.movieapp.repository.Movie
 
-class MovieService(private val api: MovieApi) {
+open class MovieService(private val api: MovieApi) {
 
-    fun getTopRated(page: Int): Observable<MoviesList?> =
+    open fun getTopRated(page: Int): Observable<MoviesList?> =
         api.topRated(page.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 
-    fun getMovie(id: String): Observable<Movie> =
+    open fun getMovie(id: String): Observable<Movie> =
         api.movie(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

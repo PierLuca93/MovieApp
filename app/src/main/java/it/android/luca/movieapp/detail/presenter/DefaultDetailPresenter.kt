@@ -30,7 +30,7 @@ class DefaultDetailPresenter(private val view: View, private val service: MovieS
     }
 
     fun clear() {
-        subscription.clear()
+        subscription.dispose()
     }
 
     override fun fetchMovie(id: String) {

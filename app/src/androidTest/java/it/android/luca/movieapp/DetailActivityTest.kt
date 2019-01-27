@@ -1,6 +1,7 @@
 package it.android.luca.movieapp
 
 import android.content.Intent
+import android.support.test.InstrumentationRegistry
 import android.support.test.InstrumentationRegistry.*
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
@@ -38,6 +39,9 @@ class DetailActivityTest {
     @Test
     fun onNonExistingMovie_showErrorToast() {
 
+//        val testInput = InstrumentationRegistry.getInstrumentation().context.resources.assets.open("/detail_response.json")
+//        val test = javaClass.getResourceAsStream("/detail_response.json")
+
         startActivity("1")
         onView(withText("HTTP 404 Movie not found")).inRoot(withDecorView(not(`is`(activityRule.activity.window.decorView))))
             .check(matches(isDisplayed()))
@@ -46,6 +50,7 @@ class DetailActivityTest {
     @Test
     fun onExistingMovie_showDetail() {
         startActivity("372058")
+        Thread.sleep(2000)
         onView(withId(R.id.poster)).check(matches(isDisplayed()))
         onView(withId(R.id.description)).check(matches(isDisplayed()))
         onView(withId(R.id.release_date)).check(matches(withText("26-08-2016")))

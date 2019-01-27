@@ -27,6 +27,12 @@ android {
             it.buildConfigField 'String', 'APIKEY', APIKey
         }
     }
+
+    sourceSets {
+        androidTest {
+            resources.srcDirs += ['src/androidTest/resources']
+        }
+    }
 }
 
 ext {

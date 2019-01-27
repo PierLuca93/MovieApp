@@ -42,7 +42,6 @@ class HomeActivityTest {
 
     @Test fun onScroll_showSecondPage() {
         onView(withId(R.id.movie_list)).perform(scrollToPosition<HomeMoviesAdapter.MovieHolder>(18))
-        Thread.sleep(2000)
         onView(withId(R.id.movie_list)).check(RecyclerViewItemCountAssertion(40))
     }
 
